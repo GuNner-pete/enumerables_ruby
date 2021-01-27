@@ -1,60 +1,58 @@
-require_relative '../enumerables.rb'
-
+require_relative '../enumerables'
 
 describe Enumerable do
-
   let(:array) { [1, 2, 3, 4, 5, 7, 8, 22, 55, 34, 86] }
   let(:all_odd_array) { [1, 3, 5, 7, 9, 11] }
   let(:negative_array) { [-8, -9, -6] }
   let(:false_array) { [1, false, 'hi', []] }
-  procc = Proc.new{|element| element * 10}
+  procc = proc { |element| element * 10 }
   range = 1..5
 
   # my_each -- array
   describe '#my_each' do
     it 'return an array' do
-      expect(array.my_each{|element| element * 2}).to eq(array.each{|element| element * 2})
+      expect(array.my_each { |element| element * 2 }).to eq(array.each { |element| element * 2 })
     end
   end
 
   # my_each -- range
   describe '#my_each' do
     it 'return an array' do
-      expect(range.my_each{|x| x.even?}).to eq(range.each{|x| x.even?})
+      expect(range.my_each(&:even?)).to eq(range.each(&:even?))
     end
   end
 
-  #my_each_with_index -- array
+  # my_each_with_index -- array
   describe '#my_each_with_index' do
     it 'return an array' do
-      expect(array.my_each_with_index{|x| x * 12}).to eq(array.each_with_index{|x| x * 12})
+      expect(array.my_each_with_index { |x| x * 12 }).to eq(array.each_with_index { |x| x * 12 })
     end
   end
 
-  #my_any? -- false_array
+  # my_any? -- false_array
   describe '#my_any?' do
     it 'return true' do
       expect(false_array.my_any?(Numeric)).to eq(false_array.any?(Numeric))
     end
   end
 
-  #my_any? -- array
+  # my_any? -- array
   describe '#my_any?' do
-    it 'return false'do
+    it 'return false' do
       expect(array.my_any?(String)).to eq(array.any?(String))
     end
   end
 
-  #my_none? -- false_array
+  # my_none? -- false_array
   describe '#my_none?' do
     it 'return true' do
       expect(false_array.my_none?(Numeric)).to eq(false_array.none?(Numeric))
     end
   end
 
-  #my_none? -- array
+  # my_none? -- array
   describe '#my_none?' do
-    it 'return false'do
+    it 'return false' do
       expect(array.my_none?(String)).to eq(array.none?(String))
     end
   end
@@ -118,7 +116,7 @@ describe Enumerable do
   # my_inject
   describe '#my_inject' do
     it 'my_inject should return the same Total of a sum' do
-      expect(array.my_inject { |total, element| total + element }).to eq(array.inject { |total, element| total + element})
+      expect(array.my_inject { |x, y| x + y }).to eq(array.inject { |x, y| x + y })
     end
   end
 
